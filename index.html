@@ -29,17 +29,31 @@
 
     /* Flexibelere Schriftgrößen und Layouts für mobile Geräte */
     h2 {
-      font-size: calc(2rem + 2vw);
+      font-size: 1.5rem; /* Statt flexibler Schriftgröße für bessere Lesbarkeit */
     }
 
     button {
-      font-size: calc(1rem + 1vw);
+      font-size: 1rem; /* Angepasste Schriftgröße für die Buttons */
+      min-width: 100px;
+      height: 45px;
     }
 
     /* Das Bild an den Bildschirm anpassen */
     img {
-      max-width: 100%;
+      max-width: 90%; /* Bild skaliert, aber bleibt im Verhältnis */
       height: auto;
+    }
+
+    /* Verhindert, dass Buttons zu groß werden */
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    /* Fixiert die Maximale Button-Größe */
+    .max-button-size {
+      max-width: 200px;
     }
   </style>
 </head>
@@ -47,14 +61,12 @@
   <div class="flex items-center justify-center h-screen">
     <div class="flex flex-col items-center p-4">
       <img id="imageDisplay" src="./images/image1.gif" alt="Süßes Kätzchen mit Blumen" class="rounded-md h-[300px]" style="object-fit: cover;" />
-      <h2 id="valentineQuestion" class="text-4xl font-bold italic text-[#bd1e59] my-4">Askim willst du mein Valentine sein???</h2>
-      <div class="flex gap-4 pt-[20px] items-center" id="responseButtons">
-        <button id="yesButton"
-          class="bounce2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium disabled:pointer-events-none disabled:opacity-50 hover:bg-green-400 min-h-12 min-w-[75px] px-4 py-2 bg-green-500 text-white transition">
+      <h2 id="valentineQuestion" class="text-4xl font-bold italic text-[#bd1e59] my-4">Askim willst du mein Valentine sein?</h2>
+      <div class="button-container" id="responseButtons">
+        <button id="yesButton" class="bounce2 inline-flex items-center justify-center rounded-md text-white bg-green-500 hover:bg-green-400 transition max-button-size">
           Ja
         </button>
-        <button id="noButton"
-          class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium transition disabled:pointer-events-none disabled:opacity-50 hover:bg-red-700 h-12 min-w-[75px] w-auto px-4 py-2 bg-red-500 text-white">
+        <button id="noButton" class="inline-flex items-center justify-center rounded-md text-white bg-red-500 hover:bg-red-700 transition max-button-size">
           Nein
         </button>
       </div>
@@ -70,9 +82,9 @@
     const responseButtons = document.getElementById('responseButtons');
   
     let noClickCount = 0;
-    let buttonHeight = 48;
-    let buttonWidth = 80;
-    let fontSize = 20;
+    let buttonHeight = 45;  /* Startgröße der Buttons */
+    let buttonWidth = 100;  /* Startbreite der Buttons */
+    let fontSize = 16;      /* Start-Schriftgröße */
     const imagePaths = [
       "./images/image1.gif",
       "./images/image2.gif",
@@ -87,14 +99,14 @@
       if (noClickCount < 5) {
         noClickCount++;
         imageDisplay.src = imagePaths[noClickCount];
-        buttonHeight += 35;
-        buttonWidth += 35;
-        fontSize += 25;
+        buttonHeight += 15;
+        buttonWidth += 20;
+        fontSize += 5;
         yesButton.style.height = `${buttonHeight}px`;
         yesButton.style.width = `${buttonWidth}px`;
         yesButton.style.fontSize = `${fontSize}px`;
         if (noClickCount < 6) {
-          noButton.textContent = ["Nein", "Bist du sicher?", "Bitte Askim", "Tu mir das nicht an :(", "Du brichst mir das Herz", "Ich kauf dir auch Blumen"][noClickCount];
+          noButton.textContent = ["Nein", "Bist du sicher?", "Bitte Askim", "Tu mir das nicht an :(", "Du brichst mir das Herz", "Askimmmm"][noClickCount];
         }
       }
     });
